@@ -1,1 +1,1 @@
-window.top.location.href = "http://www.example.com"; 
+window.parent.location.href = "http://www.example.com"; 
